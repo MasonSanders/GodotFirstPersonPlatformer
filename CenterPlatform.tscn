@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type spatial;
+
+void vertex() {
+	
+	// set gradient color
+	// decrease red as y decreases
+	COLOR.r = VERTEX.y;
+	// decrease blue and green as y increases
+	COLOR.g = (-VERTEX.y + 0.6) * 1.0;
+	COLOR.b = (-VERTEX.y + 0.6) * 10.0;
+}
+
+void fragment() {
+	ALBEDO = COLOR.rgb;
+	METALLIC = 0.0;
+	ROUGHNESS = ALBEDO.b;
+	SPECULAR = 0.0;
+	
+	if (ROUGHNESS > 1.0) {
+		ROUGHNESS = 1.0;
+	}
+	if (ROUGHNESS < 0.0) {
+		ROUGHNESS = 0.0;
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+
+[sub_resource type="BoxShape" id=4]
+
+[node name="CenterPlatform" type="StaticBody"]
+
+[node name="CenterPlatform" type="MeshInstance" parent="."]
+transform = Transform( 10, 0, 0, 0, 3, 0, 0, 0, 10, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 10, 0, 0, 0, 3, 0, 0, 0, 10, 0, 0, 0 )
+shape = SubResource( 4 )

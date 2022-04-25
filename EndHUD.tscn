@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="VisualShader" id=1]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx;
+
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Output:0
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( 0, 75 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[node name="EndHUD" type="CanvasLayer"]
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.442
+anchor_top = 0.449
+anchor_right = 0.493
+anchor_bottom = 0.449
+margin_right = 40.0
+margin_bottom = 14.0
+rect_scale = Vector2( 2, 2 )
+text = "THE END"
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 2 )

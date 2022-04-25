@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Assets/circle_02.png" type="Texture" id=1]
+[ext_resource path="res://Assets/spark_02.png" type="Texture" id=2]
+[ext_resource path="res://PlayerBullet.gd" type="Script" id=3]
+
+[sub_resource type="SphereShape" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+render_priority = 2
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+gravity = Vector3( 0, 0, 0 )
+color = Color( 0.352941, 0.937255, 1, 1 )
+
+[sub_resource type="QuadMesh" id=4]
+
+[sub_resource type="SpatialMaterial" id=5]
+render_priority = 2
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0.0119048, 0.5, 1 )
+colors = PoolColorArray( 0, 0.0478516, 1, 1, 0.805906, 0.873047, 0.381958, 1, 0.3125, 1, 0.991943, 1 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 358.51
+angular_velocity_random = 1.0
+angle = 720.0
+angle_random = 1.0
+color_ramp = SubResource( 7 )
+
+[sub_resource type="QuadMesh" id=9]
+
+[node name="PlayerBullet" type="KinematicBody"]
+script = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="EnergySphere" type="Particles" parent="."]
+material_override = SubResource( 2 )
+amount = 1
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 4 )
+
+[node name="Electricity" type="Particles" parent="."]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0 )
+material_override = SubResource( 5 )
+preprocess = 1.0
+process_material = SubResource( 8 )
+draw_pass_1 = SubResource( 9 )

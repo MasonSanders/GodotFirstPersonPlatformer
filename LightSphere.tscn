@@ -1,0 +1,95 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Assets/twirl_01.png" type="Texture" id=1]
+[ext_resource path="res://Assets/light_01.png" type="Texture" id=2]
+
+[sub_resource type="SphereShape" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0.313993, 0.672355, 0.928328, 1 )
+colors = PoolColorArray( 0.40625, 0.892151, 1, 1, 0.961121, 1, 0.289063, 1, 1, 1, 1, 1, 0.996422, 1, 0.93458, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0.0909091 ), 0.0, 0.0, 0, 0, Vector2( 0.655063, 0.718182 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 1
+emission_sphere_radius = 0.01
+gravity = Vector3( 0, 0, 0 )
+initial_velocity_random = 1.0
+angular_velocity = 20.0
+angular_velocity_random = 1.0
+radial_accel_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale = 1.2
+scale_random = 1.0
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 4 )
+
+[sub_resource type="QuadMesh" id=8]
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="Gradient" id=10]
+offsets = PoolRealArray( 0.317406, 0.593857 )
+colors = PoolColorArray( 0.885742, 0.865361, 0.525909, 1, 0.613281, 1, 0.993202, 1 )
+
+[sub_resource type="GradientTexture" id=11]
+gradient = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = -77.14
+scale = 0.8
+scale_random = 1.0
+color_ramp = SubResource( 11 )
+
+[sub_resource type="QuadMesh" id=13]
+
+[node name="LightSphere" type="KinematicBody"]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="CentralLight" type="Particles" parent="."]
+material_override = SubResource( 2 )
+amount = 10
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="OuterRing" type="Particles" parent="."]
+transform = Transform( 1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0 )
+material_override = SubResource( 9 )
+amount = 10
+lifetime = 5.13
+speed_scale = 3.92
+process_material = SubResource( 12 )
+draw_pass_1 = SubResource( 13 )
